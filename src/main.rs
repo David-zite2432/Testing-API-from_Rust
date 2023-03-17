@@ -1,5 +1,5 @@
 use std::io::stdin;
-use serde_json::Value;
+use serde::{ Serialize, Deserialize };
 
 fn main() {
     // This project will simulate recolate collect data form users API
@@ -19,6 +19,19 @@ fn return_user(user_id: &str) -> Result<String, ureq::Error> {
         user_id
     )).call()?.into_string()?;
 
-    let user: Value = serde_json::from_str(&body).unwrap();
-    Ok(user.to_string())
+    let user: UserData = serde_json::from_str(&body).unwrap();
+    let general_info = format!(
+        "Name: {}, User name: {}, email: {} website: {}",
+        user.name, user.username, user.email, user.website
+    );
+
+    Ok(general_info)
+}
+
+#[derive(Serialize, Deserialize)]
+struct UserData {
+    name: String,
+    username: String,
+    email: String,
+    website: String,
 }
