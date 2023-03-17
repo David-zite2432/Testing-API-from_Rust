@@ -10,7 +10,7 @@ fn main() {
     if let Ok(value) = return_user(&user_id) {
         println!("{}", value);
     }
-    println!("Comapnie Data");
+    println!("Comapnie Data for recolate the user data about her companie");
 
 }
 
